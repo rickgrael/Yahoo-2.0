@@ -1,0 +1,42 @@
+    <h3 class="text-center">Menu</h3>
+    <hr>
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Pesquise uma pergunta">
+        <button class="btn btn-outline-secondary"><i class="bi bi-search"></i></button>
+    </div>
+    <hr>
+    <a href="/nova_pergunta" class="text-decoration-none text-start btn w-100 menu_item">
+        <i class="bi bi-pencil-square"></i> Nova pergunta
+    </a>
+    <hr>
+    <a href="/minhas_perguntas" class="text-decoration-none text-start btn w-100 menu_item">
+        <i class="bi bi-book"></i> Minhas perguntas
+    </a>
+    <hr>
+    <a href="/minhas_respostas" class="text-decoration-none text-start btn w-100 menu_item">
+        <i class="bi bi-chat-text"></i> Minhas respostas
+    </a>
+    <hr>
+    <a href="/favoritas" class="text-decoration-none text-start btn w-100 menu_item">
+        <i class="bi bi-heart"></i> Perguntas favoritas
+    </a>
+    <hr>
+    <a href="/configuracoes" class="text-decoration-none text-start btn w-100 menu_item">
+        <i class="bi bi-gear"></i> Configurações
+    </a>
+    <hr>
+    <a href="/logoff" class="text-decoration-none text-danger text-center btn w-100 menu_item">
+        <i class="bi bi-power"></i> Sair
+    </a>
+    <script>
+        const href = window.location.href;
+        const path = href.split('/');
+        const lastPath = path[path.length - 1];
+        const menuItem = document.querySelectorAll('.menu_item');
+        const menuItemLength = menuItem.length;
+        for (let i = 0; i < menuItemLength; i++) {
+            if (menuItem[i].getAttribute('href') == '/'+lastPath) {
+                menuItem[i].classList.add('fw-bold', 'text-primary');
+            }
+        }
+    </script>

@@ -1,0 +1,15 @@
+<div class="card mb-2">
+    <div class="card-header">
+        <i class="bi bi-person-circle"></i> <%=answer.name%>
+    </div>
+    <div class="card-body">
+        <p><%=answer.description%></p>
+        <hr>
+        <div class="fs-5">
+            <i data-id="<%=answer.id%>" class="btn fs-4 bi bi-arrow-up-square like_button"></i>
+            <span><%=answer.likes%></span>
+            <i data-id="<%=answer.id%>" class="btn fs-4 bi bi-arrow-down-square dislike_button"></i>
+            <span><%= answer.dislikes %></span>
+        </div>
+    </div>
+</div>

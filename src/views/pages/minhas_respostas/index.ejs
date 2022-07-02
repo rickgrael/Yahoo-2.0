@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <title>Document</title>
+</head>
+<body>
+    <%-include('../../partials/navbar/index.ejs', {user:false})%>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 border rounded p-2">
+                <%-include('../../partials/sidebar/index.ejs')%>
+            </div>
+            <div class="col-6">
+                <h2 class="display-4 text-center mb-4">Minhas respostas</h2>
+                <div class="lista_respostas">
+                    <%question_answers.forEach(question_answer => {%>
+                        <%-include('../../partials/question/index.ejs', {question:question_answer.question})%>
+                        <hr>
+                        <%-include('../../partials/answer/index.ejs', {answer:question_answer})%>
+                        <hr class="mt-5">
+                    <%})%>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <script>
+        const like_buttons = document.querySelectorAll('.like_button')
+        const dislike_buttons = document.querySelectorAll('.dislike_button')
+    
+        like_buttons.forEach(like_button => {
+            like_button.addEventListener('click',async (e)=>{
+                const id = e.currentTarget.dataset.id;
+                console.log("botao de like da resposta com id=" + id + " apertado.")
+                const resposta = await fetch('/vote/answer/'+id, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({liked:true})
+                })
+                const json = await resposta.json();
+                console.log(json)
+                window.location.reload()
+            })
+        })  
+        dislike_buttons.forEach(dislike_button => {
+            dislike_button.addEventListener('click',async (e)=>{
+                const id = e.currentTarget.dataset.id;
+                const resposta = await fetch('/vote/answer/'+id, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({liked:false})
+                })
+                const json = await resposta.json();
+                console.log(json)
+                window.location.reload()
+            })
+        })
+    </script>
+</body>
+</html>
